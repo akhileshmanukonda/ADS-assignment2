@@ -40,6 +40,14 @@ df_year.head()
 df_country
 # Getting output
 
+#decribes the data frame of year
+a = df_year.describe()
+#printing the values of describe are count,mean,std,min,max
+print(a)
+#decribes the data frame of country
+s = df_country.describe()
+#printing the values of describe are count,mean,std,min,max
+print(s)
 
 def read_worldbank_data(filename):
     """
@@ -111,7 +119,7 @@ def country(cty, df):
     """
     df = df[df['Country Name'].isin([cty])]
     df = df.set_index("Indicator Name")
-    df = df.drop("Country Name", axis = 1)
+    df = df.drop("Country Name", axis=1)
     df = df.T
     return df
 
@@ -120,24 +128,36 @@ def country(cty, df):
 # rows where the 'Country Name' column contains 'United States'
 US_pop_Compare = country("United States", df_country2)
 
-# Select a subset of columns from US_pop_Compare and assign it to a new DataFrame called total_pop
-total_pop=US_pop_Compare[["Population in urban agglomerations of more than 1 million (% of total population)",
-                          "Population living in areas where elevation is below 5 meters (% of total population)",
-                          "Urban population living in areas where elevation is below 5 meters (% of total population)",
-                          "Rural population living in areas where elevation is below 5 meters (% of total population)"]]
+# Select a subset of columns from US_pop_Compare and assign it to a new
+# DataFrame called total_pop
+total_pop = US_pop_Compare[["Population in urban agglomerations of more " +
+                            "than 1 million (% of total population)",
+                           "Population living in areas where elevation is " +
+                            "below 5 meters (% of total population)",
+                            "Urban population living in areas " +
+                            "where elevation is below 5 meters " +
+                            "(% of total population)",
+                            "Rural population living in areas where " +
+                            "elevation is below 5 meters " +
+                            "(% of total population)"]]
 
-# Compute the pairwise correlation of columns in total_pop, excluding NA/null values
-ed=total_pop.corr()
+# Compute the pairwise correlation of columns in total_pop, excluding NA/null
+#values
+ed = total_pop.corr()
 
 # Return the resulting correlation matrix
 ed
 
 
-# Create a heatmap of the correlation matrix with annotations showing the correlation coefficients
+# Create a heatmap of the correlation matrix with annotations showing the
+#correlation coefficients
 ax = sns.heatmap(ed, annot=True)
 
-# Call the attribute_function with the arguments "Population in urban agglomerations of more than 1 million (% of total population)" and df_country2
-urban_agglo=attribute_function("Population in urban agglomerations of more than 1 million (% of total population)",df_country2)
+# Call the attribute_function with the arguments "Population in urban
+#agglomerations of more than 1 million (% of total population)" and df_country2
+urban_agglo = attribute_function("Population in urban agglomerations of " +
+                                 "more than 1 million (% of total population)",
+                                 df_country2)
 
 # Assign the resulting DataFrame to the variable urban_agglo
 
@@ -145,7 +165,8 @@ urban_agglo=attribute_function("Population in urban agglomerations of more than 
 # Create a list of countries to plot
 countries = ['Australia', 'United States', 'United Kingdom', 'World']
 
-# Filter the urban_agglo DataFrame to only include rows where the "Country Name" column is in the countries list
+# Filter the urban_agglo DataFrame to only include rows where the
+#"Country Name" column is in the countries list
 urban_agglo = urban_agglo[urban_agglo['Country Name'].isin(countries)]
 
 # Create a step plot of the data
@@ -158,7 +179,8 @@ plt0.xticks(rotation=90)
 plt0.ylabel('Population < 1 million')
 
 # Set the plot title
-plt0.title('Population in urban agglomerations of more than 1 million (% of total population) by Country')
+plt0.title('Population in urban agglomerations of more than 1 million ' +
+           '(% of total population) by Country')
 
 # Display the plot
 plt0.show()
@@ -167,7 +189,8 @@ plt0.show()
 # Create a list of countries to plot
 countries = ['Australia', 'United States', 'United Kingdom', 'World']
 
-# Filter the urban_agglo DataFrame to only include rows where the "Country Name" column is in the countries list
+# Filter the urban_agglo DataFrame to only include rows where the
+# "Country Name" column is in the countries list
 urban_agglo = urban_agglo[urban_agglo['Country Name'].isin(countries)]
 
 # Create a step plot of the data
@@ -180,12 +203,18 @@ plt0.xticks(rotation=90)
 plt0.ylabel('Population < 1 million')
 
 # Set the plot title
-plt0.title('Population in urban agglomerations of more than 1 million (% of total population) by Country')
+plt0.title('Population in urban agglomerations of more than 1 million ' +
+           '(% of total population) by Country')
 
 # Display the plot
 plt0.show()
-# Call the attribute_function with the arguments "Urban population living in areas where elevation is below 5 meters (% of total population)" and df_country2
-urban_pop_elevation = attribute_function("Urban population living in areas where elevation is below 5 meters (% of total population)",df_country2)
+# Call the attribute_function with the arguments "Urban population living in
+#areas where elevation is below 5 meters (% of total population)" and
+#df_country2
+urban_pop_elevation = attribute_function("Urban population living in areas " +
+                                         "where elevation is below 5 meters" +
+                                         " (% of total population)",
+                                         df_country2)
 
 # Assign the resulting DataFrame to the variable urban_pop_elevation
 urban_pop_elevation
@@ -194,11 +223,14 @@ urban_pop_elevation
 # Create a list of countries to plot
 countries = ['Australia', 'United States', 'United Kingdom', 'World']
 
-# Filter the urban_pop_elevation DataFrame to only include rows where the "Country Name" column is in the countries list
-urban_pop_elevation = urban_pop_elevation[urban_pop_elevation['Country Name'].isin(countries)]
+# Filter the urban_pop_elevation DataFrame to only include rows where the
+#"Country Name" column is in the countries list
+urban_pop_elevation = urban_pop_elevation[urban_pop_elevation[
+    'Country Name'].isin(countries)]
 
 # Create a bar plot of the data
-plt1.bar(urban_pop_elevation['Country Name'], urban_pop_elevation['2015'])
+plt1.bar(urban_pop_elevation['Country Name'],
+         urban_pop_elevation['2015'])
 
 # Rotate the x-axis labels by 90 degrees
 plt1.xticks(rotation=90)
@@ -207,12 +239,18 @@ plt1.xticks(rotation=90)
 plt1.ylabel('Urban population (% of total population')
 
 # Set the plot title
-plt1.title('Urban population living in areas where elevation is below 5 meters by Country')
+plt1.title('Urban population living in areas where elevation is below 5\
+           meters by Country')
 
 # Display the plot
 plt1.show()
-# Call the attribute_function with the arguments "Rural population living in areas where elevation is below 5 meters (% of total population)" and df_country2
-rural_pop_elevation = attribute_function("Rural population living in areas where elevation is below 5 meters (% of total population)",df_country2)
+# Call the attribute_function with the arguments "Rural population living in
+#areas where elevation is below 5 meters (% of total population)" and
+#df_country2
+rural_pop_elevation = attribute_function("Rural population living in "+
+                                         "areas where elevation is below 5 " + 
+                                         "meters (% of total population)",
+                                         df_country2)
 
 # Assign the resulting DataFrame to the variable rural_pop_elevation
 rural_pop_elevation
@@ -222,9 +260,11 @@ rural_pop_elevation
 countries = ['Australia', 'United States', 'United Kingdom', 'World']
 
 # Filter the data to include only the selected countries
-rural_pop_elevation = rural_pop_elevation[rural_pop_elevation['Country Name'].isin(countries)]
+rural_pop_elevation = rural_pop_elevation[rural_pop_elevation[
+    'Country Name'].isin(countries)]
 
-# Create a stem plot of the rural population living in areas where elevation is below 5 meters by country
+# Create a stem plot of the rural population living in areas where elevation is
+# below 5 meters by country
 plt.stem(rural_pop_elevation['Country Name'], rural_pop_elevation['2015'])
 
 # Rotate the x-axis labels by 90 degrees
@@ -234,7 +274,8 @@ plt.xticks(rotation=90)
 plt.ylabel('Rural population (% of total population')
 
 # Add a title to the plot
-plt.title('Rural population living in areas where elevation is below 5 meters by Country')
+plt.title('Rural population living in areas where elevation is below '+
+          '5 meters by Country')
 
 # Display the plot
 plt.show()
@@ -242,10 +283,13 @@ plt.show()
 # Read the World Bank data from a CSV file
 df3 = pd.read_csv('WorldBank.csv', skiprows=4)
 
-# Subset the data to only include GDP and Renewable Energy Consumption for a few countries and the world
+# Subset the data to only include GDP and Renewable Energy Consumption for a
+#few countries and the world
 countries = ['Australia', 'United States', 'United Kingdom', 'Argentina']
-indicators = ['GDP (current US$)', 'Renewable energy consumption (% of total final energy consumption)']
-df = df3[df3['Country Name'].isin(countries) & df3['Indicator Name'].isin(indicators)]
+indicators = ['GDP (current US$)', 'Renewable energy consumption ' +
+              '(% of total final energy consumption)']
+df = df3[df3['Country Name'].isin(countries) & df3[
+    'Indicator Name'].isin(indicators)]
 
 # Group the data by country and compute the mean
 df_mean = df.groupby('Indicator Name').mean().reset_index()
@@ -256,10 +300,13 @@ df_mean
 # Read the World Bank data from a CSV file
 df3 = pd.read_csv('WorldBank.csv', skiprows=4)
 
-# Subset the data to only include GDP and Renewable Energy Consumption for a few countries and the world
+# Subset the data to only include GDP and Renewable Energy Consumption for a
+#few countries and the world
 countries = ['Australia', 'United States', 'United Kingdom', 'Argentina']
-indicators = ['GDP (current US$)', 'Renewable energy consumption (% of total final energy consumption)']
-df = df3[df3['Country Name'].isin(countries) & df3['Indicator Name'].isin(indicators)]
+indicators = ['GDP (current US$)', 'Renewable energy consumption ' +
+              '(% of total final energy consumption)']
+df = df3[df3['Country Name'].isin(countries) & df3[
+    'Indicator Name'].isin(indicators)]
 
 # Group the data by country and compute the mean
 df_mean = df.groupby('Indicator Name').mean().reset_index()
@@ -281,3 +328,22 @@ plt.legend()
 
 # Display the chart
 plt.show()
+
+
+#reading groupby dataframe
+groupby_df =  read_worldbank_data('WorldBank.csv')
+#calculating the mean and median of new_df
+new_df = groupby_df[[ 'Country Name','1950', '1960', '1970', '1980', '1990']]
+#by country name calculating mean and median for worldbank data
+group_by_countries_mean = new_df.groupby('country name').mean()
+group_by_countries_median = new_df.groupby('country name').median()
+
+#printing the values of mean and median of dataframe
+print(group_by_countries_mean)
+print(group_by_countries_median)
+
+
+
+
+
+
